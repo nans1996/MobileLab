@@ -16,7 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends Activity implements View.OnTouchListener {
+public class MainActivity extends Activity  {
 
     Paint p;
     RectF rectf;
@@ -41,19 +41,9 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeWidth(12);
 
-       // setContentView(R.layout.activity_main);
-       // button = (Button)findViewById(R.id.button);
+
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        float x = event.getX();
-        float y = event.getY();
-
-        if ((x > 50 & x < 250) && (y> 700 & y<800))
-        mBitmap.eraseColor(Color.TRANSPARENT);
-        return  true;
-    }
 
 
     public  class DrawingView extends View {
@@ -82,7 +72,6 @@ public class MainActivity extends Activity implements View.OnTouchListener {
             circlePaint.setStyle(Paint.Style.STROKE);
             circlePaint.setStrokeJoin(Paint.Join.MITER);
             circlePaint.setStrokeWidth(4f);
-          //  setOnTouchListener((OnTouchListener) this);
         }
 
 
@@ -92,10 +81,9 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         protected void onSizeChanged(int w, int h, int oldw, int oldh) {
             super.onSizeChanged(w, h, oldw, oldh);
 
-            mBitmap = Bitmap.createBitmap(700, 700, Bitmap.Config.ARGB_8888);
+            mBitmap = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
             mCanvas = new Canvas(mBitmap);
-//            button.layout(10,3000,1700,17);
-//            button.draw(mCanvas);
+
         }
 
         @Override
@@ -107,11 +95,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
             canvas.drawPath( mPath,  mPaint);
             canvas.drawPath( circlePath,  circlePaint);
 
-            p.setColor(Color.RED);
-            canvas.drawRoundRect(rectf,20,20,p);
-            p.setColor(Color.BLACK);
-            p.setTextSize(30);
-            canvas.drawText("Очистить",90,750,p);
+
         }
 
         private float mX, mY;
@@ -140,9 +124,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         private void touch_up() {
             mPath.lineTo(mX, mY);
             circlePath.reset();
-            // commit the path to our offscreen
             mCanvas.drawPath(mPath,  mPaint);
-            // kill this so we don't double draw
             mPath.reset();
         }
 
@@ -171,8 +153,5 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
     }
 
-    public void clearDrawing(View view) {
-        mCanvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
 
-    }
 }
